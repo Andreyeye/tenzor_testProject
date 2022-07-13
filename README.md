@@ -36,8 +36,6 @@ pages\yandex_search_page.py - функционал для работы на ст
 
 pages\yandex_search_result_page.py - функционал для работы на странице результатов поиска Яндекс
 
-reports\ - содержит отчеты о выполнении тестов
-
 tests\conftest.py - модуль фикстур
 
 tests\test_yandex_images.py - модуль содержит тестовый сценарий test_yandex_images (Картинки на яндексе)
