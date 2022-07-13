@@ -6,6 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 @pytest.fixture
 def get_chrome_options():
+    """Настройка опций для вебдрайвера Selenium"""
     options = chrome_options()
     options.add_argument('chrome')
     options.add_argument('--start-maximized')
@@ -14,6 +15,7 @@ def get_chrome_options():
 
 @pytest.fixture
 def get_webdriver(get_chrome_options):
+    """Настройка вебдрайвера Selenium"""
     options = get_chrome_options
     driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
     return driver
@@ -21,10 +23,9 @@ def get_webdriver(get_chrome_options):
 
 @pytest.fixture(scope='function')
 def setup(request, get_webdriver):
+    """Инициализация вебдрайвера Selenium и передача тестовым функциям"""
     driver = get_webdriver
-    #url = "https://www.macys.com/"
     if request.cls is not None:
         request.cls.driver = driver
-    #driver.get(url)
     yield driver
     driver.quit()

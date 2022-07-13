@@ -1,39 +1,43 @@
 import time
-
 from base.seleniumbase import SeleniumBase
-from selenium.webdriver.remote.webelement import WebElement
-from typing import List
-from selenium.webdriver.common.keys import Keys
-
+from locators import YandexImagesPageLocators
 
 class YandexImagesPage(SeleniumBase):
+    """Реализует функционал для работы на странице Яндекс Картинки"""
 
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
 
     def at_page(self):
+        """Проверка, что мы на странице Яндекс Картинки"""
         return 'https://yandex.ru/images/' in self.driver.current_url
 
     def open_first_category(self) -> str:
-        first_cat_el = self.is_visible('css', 'div[class=\'PopularRequestList-Item PopularRequestList-Item_pos_0\']', 'First Category')
+        """Открывает 1-ую категорию картинок и возвращает название категории"""
+        first_cat_el = self.is_visible(YandexImagesPageLocators.LOCATOR_FIRST_IMG_CAT)
         first_cat_name = first_cat_el.get_attribute('data-grid-text')
         first_cat_el.click()
         return first_cat_name
 
     def get_search_field_text(self) -> str:
-        search_field = self.is_visible('css', 'input[name=text]', 'Search Field')
+        """Возвращает текст с поля поиска"""
+        search_field = self.is_visible(YandexImagesPageLocators.LOCATOR_SEARCH_FIELD)
         return search_field.get_attribute('value')
 
     def open_first_image(self):
-        self.is_visible('css', 'div[class*=serp-item_pos_0]', 'First Image').click()
+        """Открывает первую картинку"""
+        self.is_visible(YandexImagesPageLocators.LOCATOR_FIRST_IMG).click()
 
     def get_image_src(self):
-        time.sleep(0.5)
-        return self.is_visible('css', 'img[class=MMImage-Preview]', 'Image').get_attribute('src')
+        """Возвращает атрибут src открытой картинки"""
+        time.sleep(1)
+        return self.is_visible(YandexImagesPageLocators.LOCATOR_OPENED_IMG).get_attribute('src')
 
     def go_next_image(self):
-        self.is_present('css', 'div[class*=ButtonNext]', 'Button Next Image').click()
+        """Переход на следующую картинку"""
+        self.is_present(YandexImagesPageLocators.LOCATOR_BTN_NEXT_IMG).click()
 
     def go_back_image(self):
-        self.is_present('css', 'div[class*=ButtonPrev]', 'Button Next Image').click()
+        """Переход на предыдущую картинку"""
+        self.is_present(YandexImagesPageLocators.LOCATOR_BTN_PREV_IMG).click()

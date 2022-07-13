@@ -6,6 +6,7 @@ from typing import List
 
 
 class SeleniumBase:
+    """Базовый класс, реализующий основной функционал для работы с веб-страницей"""
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 15, 0.3)
@@ -40,3 +41,6 @@ class SeleniumBase:
     def are_present(self, find_by: str, locator: str, locator_name: str = None) -> List[WebElement]:
         return self.wait.until(ec.presence_of_all_elements_located((self.__get_selenium_by(find_by), locator)),
                                locator_name)
+
+    def title_contains(self, text):
+        return self.wait.until(ec.title_contains(text), 'Title')
