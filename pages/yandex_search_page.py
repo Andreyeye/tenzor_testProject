@@ -1,7 +1,7 @@
 from base.seleniumbase import SeleniumBase
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
-from locators import YandexSearchPageLocators
+from pages.locators import YandexSearchPageLocators
 
 
 class YandexSearchPage(SeleniumBase):
@@ -22,7 +22,7 @@ class YandexSearchPage(SeleniumBase):
 
     def get_search_field(self) -> WebElement:
         """Возвращает поле поиска"""
-        return self.is_visible(YandexSearchPageLocators.LOCATOR_SEARCH_FIELD)
+        return self.is_visible(*YandexSearchPageLocators.LOCATOR_SEARCH_FIELD)
 
     def enter_in_search(self, search_field: WebElement, search_text: str):
         """Ввод в поле поиска"""
@@ -30,7 +30,7 @@ class YandexSearchPage(SeleniumBase):
 
     def get_suggest(self) -> WebElement:
         """Возвращает таблицу с подсказками"""
-        return self.is_visible(YandexSearchPageLocators.LOCATOR_SUGGEST_FIELD)
+        return self.is_visible(*YandexSearchPageLocators.LOCATOR_SUGGEST_FIELD)
 
     def search(self, search_field: WebElement):
         """Осуществляет поиск (Ввод клавиши Enter)"""
@@ -38,7 +38,7 @@ class YandexSearchPage(SeleniumBase):
 
     def get_images_link(self):
         """Возвращает ссылку "Картинки" """
-        return self.is_visible(YandexSearchPageLocators.LOCATOR_IMAGES_LINK)
+        return self.is_visible(*YandexSearchPageLocators.LOCATOR_IMAGES_LINK)
 
     def go_to_images(self, image_link: WebElement):
         """Переход на Яндекс Картинки"""
